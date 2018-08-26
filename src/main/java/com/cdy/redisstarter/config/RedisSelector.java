@@ -21,7 +21,7 @@ public class RedisSelector implements ImportSelector {
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> annotationAttributes = importingClassMetadata.getAnnotationAttributes(EnableRedisUtil.class.getName());
         String value = (String) annotationAttributes.get("value");
-        log.info("RedisUtil type is {} .", value);
+        log.info("Redis type is {} .", value);
         switch (value) {
             case SINGLE:
                 return new String[]{SingleRedisConfiguration.class.getName()};

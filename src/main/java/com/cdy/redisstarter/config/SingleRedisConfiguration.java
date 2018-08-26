@@ -1,16 +1,13 @@
 package com.cdy.redisstarter.config;
 
-import com.cdy.common.util.middleware.redis.JedisSingleUtil;
-import com.cdy.common.util.middleware.redis.JedisUtil;
+import com.cdy.common.util.cache.redis.RedisSingleUtil;
+import com.cdy.common.util.cache.redis.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * 单机redis自动配置类
@@ -22,23 +19,22 @@ public class SingleRedisConfiguration {
     
     private Logger log = LoggerFactory.getLogger(this.getClass());
     
-    @Autowired
-    RedisProperties redisProperties;
-    
     @Bean
-    public JedisUtil jedisUtil() {
-        JedisUtil jedisUtil = null;
+    @Primary
+    public RedisUtil redisUtil(RedisProperties redisProperties) {
+        RedisUtil redisUtil = null;
         if (StringUtils.isBlank(redisProperties.getHost()) || redisProperties.getPort() == null) {
             log.warn("RedisProperties not configure host or post");
-            jedisUtil = new JedisSingleUtil();
+            redisUtil = new RedisSingleUtil();
         } else {
             if (redisProperties.getExpireTime() == null) {
-                jedisUtil = new JedisSingleUtil(redisProperties.getHost(), redisProperties.getPort());
+                redisUtil = new RedisSingleUtil(redisProperties.getHost(), redisProperties.getPort());
+            } else {
+                redisUtil = new RedisSingleUtil(redisProperties.getExpireTime(), redisProperties.getHost(), redisProperties.getPort());
             }
-            jedisUtil = new JedisSingleUtil(redisProperties.getExpireTime(), redisProperties.getHost(), redisProperties.getPort());
         }
-        jedisUtil.init();
-        return jedisUtil;
+        redisUtil.init();
+        return redisUtil;
     }
     
 }
