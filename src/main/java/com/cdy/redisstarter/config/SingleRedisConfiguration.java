@@ -20,7 +20,6 @@ public class SingleRedisConfiguration {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     
     @Bean
-    @Primary
     public RedisUtil redisUtil(RedisProperties redisProperties) {
         RedisUtil redisUtil = null;
         if (StringUtils.isBlank(redisProperties.getHost()) || redisProperties.getPort() == null) {
