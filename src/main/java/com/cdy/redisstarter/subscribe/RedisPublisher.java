@@ -11,7 +11,7 @@ import redis.clients.jedis.Jedis;
  * 2018/11/9 0009 21:44
  */
 @Slf4j
-public class RedisPublisher {
+public class RedisPublisher implements Publisher{
     
     @Autowired
     RedisUtil redisUtil;
