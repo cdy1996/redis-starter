@@ -1,6 +1,6 @@
 package com.cdy.redisstarter.subscribe;
 
-import com.cdy.common.util.cache.redis.RedisUtil;
+import com.cdy.redis.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;

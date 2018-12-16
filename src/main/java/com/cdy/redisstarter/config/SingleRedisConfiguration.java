@@ -1,13 +1,12 @@
 package com.cdy.redisstarter.config;
 
-import com.cdy.common.util.cache.redis.RedisSingleUtil;
-import com.cdy.common.util.cache.redis.RedisUtil;
+import com.cdy.redis.RedisSingleUtil;
+import com.cdy.redis.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 /**
  * 单机redis自动配置类

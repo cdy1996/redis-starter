@@ -1,6 +1,6 @@
 package com.cdy.redisstarter.subscribeByList;
 
-import com.cdy.common.util.cache.redis.RedisUtil;
+import com.cdy.redis.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
