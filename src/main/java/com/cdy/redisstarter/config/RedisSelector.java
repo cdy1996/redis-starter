@@ -1,7 +1,6 @@
 package com.cdy.redisstarter.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
 
@@ -14,9 +13,8 @@ import static com.cdy.redisstarter.config.RedisType.*;
  * Created by 陈东一
  * 2018/8/19 12:17
  */
+@Slf4j
 public class RedisSelector implements ImportSelector {
-    private Logger log = LoggerFactory.getLogger(this.getClass());
-    
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> annotationAttributes = importingClassMetadata.getAnnotationAttributes(EnableRedisUtil.class.getName());
@@ -24,14 +22,14 @@ public class RedisSelector implements ImportSelector {
         log.info("Redis type is {} .", value);
         switch (value) {
             case SINGLE:
-                return new String[]{SingleRedisConfiguration.class.getName()};
+                return new String[]{RedisSingleConfiguration.class.getName()};
             case MASTER:
-                break;
+                return new String[]{RedisSentinelConfiguration.class.getName()};
             case CLUSTER:
-                break;
+                return new String[]{RedisClusterConfiguration.class.getName()};
             default:
-                break;
+                return new String[]{RedisSingleConfiguration.class.getName()};
         }
-        return new String[0];
+        
     }
 }

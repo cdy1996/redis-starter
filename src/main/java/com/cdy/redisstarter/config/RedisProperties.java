@@ -13,5 +13,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class RedisProperties {
     private String host;
     private Integer port;
-    private Integer expireTime;
+    private String password;
+    
+    // sentienl masterName
+    private String masterName;
+    // sentienl/cluster 127.0.0.1:7300;127.0.0.2:7300
+    private String hostAndPorts;
+    
+    
+    
+    
+    
+    
 }

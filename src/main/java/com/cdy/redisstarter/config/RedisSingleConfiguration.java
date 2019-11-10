@@ -2,9 +2,8 @@ package com.cdy.redisstarter.config;
 
 import com.cdy.redis.RedisSingleUtil;
 import com.cdy.redis.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
  * 2018/8/19 12:02
  */
 @Configuration
-public class SingleRedisConfiguration {
+@Slf4j
+public class RedisSingleConfiguration {
     
-    private Logger log = LoggerFactory.getLogger(this.getClass());
     
     @Bean
     public RedisUtil redisUtil(RedisProperties redisProperties) {
@@ -25,11 +24,7 @@ public class SingleRedisConfiguration {
             log.warn("RedisProperties not configure host or post");
             redisUtil = new RedisSingleUtil();
         } else {
-            if (redisProperties.getExpireTime() == null) {
-                redisUtil = new RedisSingleUtil(redisProperties.getHost(), redisProperties.getPort());
-            } else {
-                redisUtil = new RedisSingleUtil(redisProperties.getExpireTime(), redisProperties.getHost(), redisProperties.getPort());
-            }
+            redisUtil = new RedisSingleUtil(redisProperties.getHost(), redisProperties.getPort());
         }
         redisUtil.init();
         return redisUtil;
